@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  gather_facts: false
+  collections:
+   - community.aws
+  tasks:
+   - name: Get the region info
+     community.aws.aws_region_info:
+       filters:
+         region-name: us-east-1

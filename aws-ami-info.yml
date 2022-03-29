@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  collections:
+    - amazon.aws
+  tasks:
+    - name: gather information about an AMI using ami-id
+      amazon.aws.ec2_ami_info:
+         image_ids: ami-05b97f66
+         region: us-east-1

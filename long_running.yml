@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Pause for 5 minutes to build app cache
+      pause:
+         minutes: 5
