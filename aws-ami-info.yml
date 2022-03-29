@@ -1,4 +1,6 @@
 ---
-- name: gather information about an AMI using ami-id
-  amazon.aws.ec2_ami_info:
-    image_ids: ami-06404a35c1f303ada
+- name: gather information about Ubuntu 17.04 AMIs published by Canonical (099720109477)
+  ec2_ami_info:
+    owners: 099720109477
+    filters:
+      name: "ubuntu/images/ubuntu-zesty-17.04-*"
