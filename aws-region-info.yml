@@ -1,8 +1,6 @@
 ---
-- hosts: localhost
-  gather_facts: false
-  collections:
-   - community.aws
+- name: Get the region info
+  hosts: all
   tasks:
    - name: Get the region info
      community.aws.aws_region_info:
