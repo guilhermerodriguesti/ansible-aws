@@ -1,5 +1,4 @@
----
-- name: Configure servers
+- name: Hello World Sample
   hosts: all
   tasks:
     - name: Task Parameter
