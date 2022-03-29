@@ -1,0 +1,7 @@
+---
+- name: Configure servers
+  hosts: all
+  tasks:
+    - name: Task Parameter
+      aws_module:
+        parameter1: value1
