@@ -1,0 +1,35 @@
+---
+
+- name: "Read RELEASE"
+  ansible.builtin.command: cat '{{ APP_PATH }}/release'
+  register: release
+
+- name: "RELEASE A"
+  ansible.builtin.debug:
+    msg: "RELEASE A"
+  when: release.stdout == "a"
+
+- name: "RELEASE B"
+  ansible.builtin.debug:
+    msg: "RELEASE B"
+  when: release.stdout == "b"
+
+- name: "Activating RELEASE A"
+  ansible.builtin.file:
+    src:  '{{ APP_PATH }}/releases/a'
+    dest: '{{ APP_PATH }}/current'
+    owner: www-data
+    group: www-data
+    state: link
+    force: yes
+  when: release.stdout == "a"
+
+- name: "Activating RELEASE B"
+  ansible.builtin.file:
+    src:  '{{ APP_PATH }}/releases/b'
+    dest: '{{ APP_PATH }}/current'
+    owner: www-data
+    group: www-data
+    state: link
+    force: yes
+  when: release.stdout == "b"
