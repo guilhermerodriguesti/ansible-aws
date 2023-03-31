@@ -1,0 +1,7 @@
+---
+regions: sa-east-1
+filters:
+  tag:Name:
+    - ec2-dev*
+hostnames:
+  - private-ip-address
