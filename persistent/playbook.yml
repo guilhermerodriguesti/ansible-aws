@@ -26,5 +26,11 @@
         dest: /usr/local/bin/docker-compose
         mode: '0755'
 
+    - name: Baixar Portainer
+      get_url:
+        url: "https://github.com/guilhermerodriguesti/portainer.git"
+        dest: /home/ec2-user/portainer
+        mode: '0755'
+
     - name: Subir containers com Docker Compose
-      command: docker-compose -f /home/ec2-user/docker-compose.yml up -d
+      command: docker-compose -f /home/ec2-user/portainer/docker-compose.yml up -d
