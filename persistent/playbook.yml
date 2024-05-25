@@ -1,0 +1,30 @@
+---
+- hosts: localhost
+  become: yes
+
+  tasks:
+    - name: Instalar Docker
+      shell: |
+        sudo amazon-linux-extras install -y docker
+        sudo service docker start
+        sudo usermod -a -G docker ec2-user
+
+    - name: Iniciar e habilitar serviço Docker
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Instalar git
+      yum:
+        name: git
+        state: present
+
+    - name: Baixar Docker Compose
+      get_url:
+        url: "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}"
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+
+    - name: Subir containers com Docker Compose
+      command: docker-compose -f /home/ec2-user/docker-compose.yml up -d
