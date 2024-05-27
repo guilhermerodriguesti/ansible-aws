@@ -53,13 +53,3 @@
         url: "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}"
         dest: /usr/local/bin/docker-compose
         mode: '0755'
-
-    - name: Clone Portainer repository
-      git:
-        repo: https://github.com/guilhermerodriguesti/portainer.git
-        dest: /home/ubuntu/portainer
-
-    - name: Bring up containers with Docker Compose
-      command: docker-compose -f /home/ubuntu/portainer/docker-compose.yml up -d
-      args:
-        chdir: /home/ubuntu/portainer
