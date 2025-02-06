@@ -1,11 +1,40 @@
 #!/bin/bash
 
+# Display help message
+show_help() {
+    echo "Usage: $0 <service-name>"
+    echo
+    echo "Parameters:"
+    echo "  service-name    Name of the service to deploy (required)"
+    echo
+    echo "Example:"
+    echo "  $0 frontend"
+    exit 1
+}
+
+# Validate parameters
+if [ $# -ne 1 ]; then
+    echo "Error: Missing required parameter."
+    show_help
+fi
+
 # Initial configurations
 REPO_DIR="/home/ubuntu/app/$1"   # Path to the local repository
 DEPLOY_BRANCH="main"            # Main production branch
 TEMP_BRANCH="deploy"
 DOCKER_COMPOSE_FILE="docker-compose.yml"
 SERVICE_NAME="$1"     # Docker service name
+
+# Validate repository directory
+if [ ! -d "$REPO_DIR" ]; then
+    echo "Error: Repository directory '$REPO_DIR' does not exist."
+    exit 1
+fi
+
+if [ ! -f "$REPO_DIR/$DOCKER_COMPOSE_FILE" ]; then
+    echo "Error: Docker Compose file not found at '$REPO_DIR/$DOCKER_COMPOSE_FILE'"
+    exit 1
+fi
 
 # Rollback function
 rollback() {
